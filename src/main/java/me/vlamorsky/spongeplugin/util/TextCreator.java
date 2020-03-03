@@ -75,15 +75,18 @@ public class TextCreator {
 
     public static String endOfHours(int hour) {
         String ending;
-        switch (hour) {
-            case 1: case 21:
+        if (hour >= 11 && hour <= 14) {
+            return "&7 часов";
+        }
+
+        switch (hour % 10) {
+            case 1:
                 ending = "&7 час";
                 break;
-            case 2:case 3:case 4: case 22: case 23:
+            case 2: case 3:
                 ending = "&7 часа";
                 break;
-            case 5:case 6:case 7:case 8:case 9: case 0:
-            case 10:case 11:case 12:case 13:case 14:case 15:case 16:case 17:case 18:case 19: case 20:
+            case 5: case 6: case 7: case 8: case 9: case 0:
                 ending = "&7 часов";
                 break;
             default:
@@ -94,19 +97,18 @@ public class TextCreator {
 
     public static String endOfMinutes(int minute) {
         String ending;
-        switch (minute) {
-            case 1: case 21:case 31:case 41:case 51:
+        if (minute >= 11 && minute <= 14) {
+            return "&7 минут";
+        }
+
+        switch (minute % 10) {
+            case 1:
                 ending = "&7 минута";
                 break;
-            case 2:case 3:case 4:case 22:case 23:case 24:case 32:case 33:case 34:case 42:case 43:case 44:case 52:case 53:case 54:
+            case 2: case 3:
                 ending = "&7 минуты";
                 break;
-            case 5:case 6:case 7:case 8:case 9:case 0:
-            case 10:case 11:case 12:case 13:case 14:case 15:case 16:case 17:case 18:case 19:
-            case 25:case 26:case 27:case 28:case 29:case 20:
-            case 35:case 36:case 37:case 38:case 39:case 30:
-            case 45:case 46:case 47:case 48:case 49:case 40:
-            case 55:case 56:case 57:case 58:case 59:
+            case 5: case 6: case 7: case 8: case 9: case 0:
                 ending = "&7 минут";
                 break;
             default:
@@ -117,19 +119,18 @@ public class TextCreator {
 
     public static String endOfSeconds(int second) {
         String ending;
-        switch (second) {
-            case 1: case 21:case 31:case 41:case 51:
+        if (second >= 11 && second <= 14) {
+            return "&7 секунд";
+        }
+
+        switch (second % 10) {
+            case 1:
                 ending = "&7 секунда";
                 break;
-            case 2:case 3:case 4:case 22:case 23:case 24:case 32:case 33:case 34:case 42:case 43:case 44:case 52:case 53:case 54:
+            case 2: case 3:
                 ending = "&7 секунды";
                 break;
-            case 5:case 6:case 7:case 8:case 9:case 0:
-            case 10:case 11:case 12:case 13:case 14:case 15:case 16:case 17:case 18:case 19:
-            case 25:case 26:case 27:case 28:case 29:case 20:
-            case 35:case 36:case 37:case 38:case 39:case 30:
-            case 45:case 46:case 47:case 48:case 49:case 40:
-            case 55:case 56:case 57:case 58:case 59:
+            case 5: case 6: case 7: case 8: case 9: case 0:
                 ending = "&7 секунд";
                 break;
             default:
