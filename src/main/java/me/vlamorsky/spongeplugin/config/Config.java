@@ -47,7 +47,6 @@ public class Config {
 
         AUTORESTART_INTERVALS = check(
                 configNode.getNode("autorestart", "realtime-intervals"),
-                //new String[]{"00", "06", "12", "18"},
                 Arrays.asList("00", "06", "12", "18"),
                 "[\"00\", \"01\", .. \"23\"] Set times for server restarts (24h format: hh), eg: \"13\" => restarts at 13:00, \"00\" => restarts at 00:00,")
                 .getList(TypeToken.of(String.class));

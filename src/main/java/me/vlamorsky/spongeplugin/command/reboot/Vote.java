@@ -299,18 +299,6 @@ public class Vote implements CommandExecutor {
                                     "  &4против &c" +
                                     noVotes));
 
-            /*if (yesVotes > noVotes) {
-                TimeCheckerThread.setRestartDateTime(LocalDateTime.now().plusSeconds(31L), "Перезагрузка по результатам голосования");
-            } else {
-
-                RebootManager.getInstance()
-                        .getGame()
-                        .getServer()
-                        .getBroadcastChannel()
-                        .send(textCreator.fromLegacy("&8[&6REBOOT&8] &7Перезагрузке не быть"));
-
-            }*/
-
             if (votesPercent <= (double)yesVotes / Sponge.getServer().getOnlinePlayers().size() && yesVotes > noVotes) {
                 TimeCheckerThread.setRestartDateTime(LocalDateTime.now().plusSeconds(31L), "Перезагрузка по результатам голосования");
             } else {
