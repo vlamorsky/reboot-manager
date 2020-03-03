@@ -125,4 +125,24 @@ public class TextCreator {
     public Text getMessageTaskCancelled() {
         return fromLegacy(config.MESSAGE_PREFIX + " &7Перезагрузка сервера отменена &2успешно&8.");
     }
+
+    public Text getMessageAskToRestart() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Перезагрузить сервер&8?  ");
+    }
+
+    public Text getMessageNotEnoughPlayers(int players) {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Необходимо как минимум &3" + players + " &7игроков онлайн&8.");
+    }
+
+    public Text getMessageAlreadyVoting() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование уже идет&8.");
+    }
+
+    public Text getMessageVotingCompleted(int yesVotes, int noVotes) {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование завершено  &2за &a" + yesVotes + "  &4против &c" + noVotes);
+    }
+
+    public Text getMessageNotEnoughVotes() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Недостаточно голосов для перезагрузки сервера&8.");
+    }
 }

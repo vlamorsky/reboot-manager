@@ -33,7 +33,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "reboot_manager",
         name = "Reboot manager",
-        version = "1.0",
+        version = "1.0.1",
         description = "Reboot manager plugin for sponge")
 public class RebootManager {
     private Logger logger;
@@ -197,7 +197,7 @@ public class RebootManager {
                     public void run() {
                         logger.info("Restarting...");
                         try {
-                            Sponge.getServer().getBroadcastChannel().send(textCreator.fromLegacy("&8[&6REBOOT&8] &7Сервер перезагружается&8..."));
+                            Sponge.getServer().getBroadcastChannel().send(textCreator.fromLegacy(" &7Сервер перезагружается&8..."));
                             Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "save-all");
                             Sponge.getServer().shutdown(textCreator.fromLegacy("&7Сервер перезагружается&8:\n" + message));
                         } catch (Exception e) {
