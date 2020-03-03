@@ -33,7 +33,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "reboot_manager",
         name = "Reboot manager",
-        version = "1.0.3",
+        version = "1.0.4",
         description = "Reboot manager plugin for sponge")
 public class RebootManager {
     private Logger logger;
@@ -170,13 +170,13 @@ public class RebootManager {
 
         CommandSpec yes = CommandSpec.builder()
                 .description(Text.of("vote yes"))
-                .permission(Permissions.COMMAND_VOTE)
+                .permission(Permissions.COMMAND_VOTE_YES)
                 .executor(new Yes())
                 .build();
 
         CommandSpec no = CommandSpec.builder()
                 .description(Text.of("vote no"))
-                .permission(Permissions.COMMAND_VOTE)
+                .permission(Permissions.COMMAND_VOTE_NO)
                 .executor(new No())
                 .build();
 

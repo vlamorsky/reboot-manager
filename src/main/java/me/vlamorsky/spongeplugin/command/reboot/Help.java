@@ -56,10 +56,10 @@ public class Help implements CommandExecutor {
         if (sender.hasPermission(Permissions.COMMAND_VOTE))
             contents.add(textCreator.fromLegacy("&8/&3reboot vote &8- &7начать голосование за перезагрузку сервера"));
 
-        if (sender.hasPermission(Permissions.COMMAND_VOTE))
+        if (sender.hasPermission(Permissions.COMMAND_VOTE_YES))
             contents.add(textCreator.fromLegacy("&8/&3vote yes &8- &7проголосовать &2за &7перезагрузку сервера"));
 
-        if (sender.hasPermission(Permissions.COMMAND_VOTE))
+        if (sender.hasPermission(Permissions.COMMAND_VOTE_NO))
             contents.add(textCreator.fromLegacy("&8/&3vote no &8- &7проголосовать &4против &7перезагрузки сервера"));
 
 
