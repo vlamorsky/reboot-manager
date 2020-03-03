@@ -32,6 +32,7 @@ public class Config {
     public final String SOUND_BASIC_NOTIFICATION;
 
     public final String MESSAGE_PREFIX;
+    public final List<Long> NOTIFY_INTERVALS;
 
     public Config(Path configPath, ConfigurationLoader<CommentedConfigurationNode> loader) throws IOException, ObjectMappingException {
         this.configPath = configPath;
@@ -44,9 +45,10 @@ public class Config {
                 "[true/false]")
                 .getBoolean();
 
-        AUTORESTART_INTERVALS = checkList(
+        AUTORESTART_INTERVALS = check(
                 configNode.getNode("autorestart", "realtime-intervals"),
-                new String[]{"00", "06", "12", "18"},
+                //new String[]{"00", "06", "12", "18"},
+                Arrays.asList("00", "06", "12", "18"),
                 "[\"00\", \"01\", .. \"23\"] Set times for server restarts (24h format: hh), eg: \"13\" => restarts at 13:00, \"00\" => restarts at 00:00,")
                 .getList(TypeToken.of(String.class));
 
@@ -93,7 +95,7 @@ public class Config {
                 .getInt();
 
         SOUND_ENABLED = check(
-                configNode.getNode("sound", "last-notice-sound"),
+                configNode.getNode("sound", "enabled"),
                 true,
                 "[true/false] Should a sound be played when a restart broadcast is sent?")
                 .getBoolean();
@@ -116,6 +118,12 @@ public class Config {
                 "prefix configuration")
                 .getString();
 
+        NOTIFY_INTERVALS = check(
+                configNode.getNode("notify", "intervals"),
+                Arrays.asList(600L, 300L, 240L, 180L, 120L, 60L, 30L, 15L),
+                "[SECONDS] intervals for notifying the time before restarting the server")
+                .getList(TypeToken.of(Long.class));
+
         save();
     }
 
@@ -126,18 +134,6 @@ public class Config {
     private CommentedConfigurationNode check(CommentedConfigurationNode node, Object defaultValue, String comment) {
         if (node.isVirtual()) {
             node.setValue(defaultValue).setComment(comment);
-        }
-        return node;
-    }
-    private CommentedConfigurationNode checkList(CommentedConfigurationNode node, Integer[] defaultValue, String comment) {
-        if (node.isVirtual()) {
-            node.setValue(Arrays.asList(defaultValue)).setComment(comment);
-        }
-        return node;
-    }
-    private CommentedConfigurationNode checkList(CommentedConfigurationNode node, String[] defaultValue, String comment) {
-        if (node.isVirtual()) {
-            node.setValue(Arrays.asList(defaultValue)).setComment(comment);
         }
         return node;
     }

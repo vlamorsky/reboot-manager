@@ -87,9 +87,7 @@ public class TimeCheckerThread extends Thread {
             }
         });
 
-        notifyIntervals.addAll(Arrays.asList(600L, 300L, 180L, 120L, 60L, 30L, 25L, 15L));
-        //Collections.sort(notifyIntervals);
-        //firstMessageInterval = notifyIntervals.get(notifyIntervals.size() - 1);
+        notifyIntervals.addAll(config.NOTIFY_INTERVALS);
 
         Optional<SoundType> cfgPreShutdownSong = Sponge.getGame()
                 .getRegistry().getType(SoundType.class, config.SOUND_BASIC_NOTIFICATION);
@@ -189,14 +187,22 @@ public class TimeCheckerThread extends Thread {
 
     public static void setRestartDateTime(LocalDateTime newRestartDateTime) {
         restartDateTime = newRestartDateTime;
-        TimeCheckerThread.getInstance().hasRebootTask = true;
+
+        getInstance().notifyIntervals
+                .addAll(getInstance().config.NOTIFY_INTERVALS);
+
+        getInstance().hasRebootTask = true;
         getInstance().interrupt();
     }
 
     public static void setRestartDateTime(LocalDateTime newRestartDateTime, String reasonMessage) {
         restartDateTime = newRestartDateTime;
         TimeCheckerThread.reasonMessage = reasonMessage;
-        TimeCheckerThread.getInstance().hasRebootTask = true;
+
+        getInstance().notifyIntervals
+                .addAll(getInstance().config.NOTIFY_INTERVALS);
+
+        getInstance().hasRebootTask = true;
         getInstance().interrupt();
     }
 

@@ -195,7 +195,7 @@ public class RebootManager {
                 .execute(new Runnable() {
                     @Override
                     public void run() {
-                        logger.info("[reboot_manager] Restarting...");
+                        logger.info("Restarting...");
                         try {
                             Sponge.getServer().getBroadcastChannel().send(textCreator.fromLegacy("&8[&6REBOOT&8] &7Сервер перезагружается&8..."));
                             Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "save-all");
