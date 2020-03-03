@@ -97,7 +97,7 @@ public class TextCreator {
     }
 
     public Text getMessageTimeUntilRestart(int hour, int minute, int second) {
-        StringBuilder stringMessage = new StringBuilder(config.MESSAGE_PREFIX + " &7До перезагрузки сервера");
+        StringBuilder stringMessage = new StringBuilder("&7До перезагрузки сервера");
         if (hour != 0) {
             stringMessage.append("&6 " + hour + endOfHours(hour));
         }
