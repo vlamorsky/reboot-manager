@@ -265,12 +265,12 @@ public class Vote implements CommandExecutor {
             scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
 
 
-            RebootManager.getInstance().getGame().getServer()
+            Sponge.getGame().getServer()
                     .getOnlinePlayers().forEach((player) -> player.setScoreboard(scoreboard));
         }
 
         private void clearScoreBoard() {
-            RebootManager.getInstance().getGame().getServer()
+            Sponge.getGame().getServer()
                     .getOnlinePlayers().forEach((player) -> player.getScoreboard().clearSlot(DisplaySlots.SIDEBAR));
         }
 
@@ -283,8 +283,7 @@ public class Vote implements CommandExecutor {
 
         private void checkVotesAndRestart() {
 
-            RebootManager.getInstance()
-                    .getGame()
+            Sponge.getGame()
                     .getServer()
                     .getBroadcastChannel()
                     .send(textCreator.getMessageVotingCompleted(yesVotes, noVotes));
@@ -292,8 +291,7 @@ public class Vote implements CommandExecutor {
             if (votesPercent <= (double)yesVotes / Sponge.getServer().getOnlinePlayers().size() && yesVotes > noVotes) {
                 TimeCheckerThread.setRestartDateTime(LocalDateTime.now().plusSeconds(31L), "Перезагрузка по результатам голосования");
             } else {
-                RebootManager.getInstance()
-                        .getGame()
+                Sponge.getGame()
                         .getServer()
                         .getBroadcastChannel()
                         .send(textCreator.getMessageNotEnoughVotes());
