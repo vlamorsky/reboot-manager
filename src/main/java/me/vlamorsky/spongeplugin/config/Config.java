@@ -31,6 +31,8 @@ public class Config {
     public final String SOUND_LAST_NOTIFICATION;
     public final String SOUND_BASIC_NOTIFICATION;
 
+    public final String MESSAGE_PREFIX;
+
     public Config(Path configPath, ConfigurationLoader<CommentedConfigurationNode> loader) throws IOException, ObjectMappingException {
         this.configPath = configPath;
         this.configLoader = loader;
@@ -106,6 +108,12 @@ public class Config {
                 configNode.getNode("sound", "last-notice-sound"),
                 "entity.cat.hurt",
                 "(sound type) The sound that should play for the last notification.")
+                .getString();
+
+        MESSAGE_PREFIX = check(
+                configNode.getNode("messages", "prefix"),
+                "&8[&6REBOOT&8]",
+                "prefix configuration")
                 .getString();
 
         save();

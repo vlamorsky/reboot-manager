@@ -29,6 +29,7 @@ public class Vote implements CommandExecutor {
     private static VoteThread voteThread;
 
     private Config config;
+    private TextCreator textCreator;
 
     public static VoteThread getVoteThread() {
         return voteThread;
@@ -36,6 +37,7 @@ public class Vote implements CommandExecutor {
 
     public Vote() {
         config = RebootManager.getInstance().getConfig();
+        textCreator = RebootManager.getInstance().getTextCreator();
         voteThread = new VoteThread();
         voteThread.start();
     }
@@ -62,21 +64,21 @@ public class Vote implements CommandExecutor {
 
                 Text votingMessage = Text.builder()
                         .append(Text.builder()
-                                .append(TextCreator.fromLegacy("&8[&6REBOOT&8] &7Перезагрузить сервер&8?  "))
+                                .append(textCreator.fromLegacy("&8[&6REBOOT&8] &7Перезагрузить сервер&8?  "))
                                 .build())
                         .append(Text.builder()
-                                .append(TextCreator.fromLegacy("&8[&2Да&8]"))
+                                .append(textCreator.fromLegacy("&8[&2Да&8]"))
                                 .onClick(TextActions.runCommand("/vote yes"))
                                 .build())
                         .append(Text.builder()
                                 .append(Text.of("  "))
                                 .build())
                         .append(Text.builder()
-                                .append(TextCreator.fromLegacy("&8[&4Нет&8]"))
+                                .append(textCreator.fromLegacy("&8[&4Нет&8]"))
                                 .onClick(TextActions.runCommand("/vote no"))
                                 .build())
                         .append(Text.builder()
-                                .append(TextCreator.fromLegacy(" &8<- &7кликабельно"))
+                                .append(textCreator.fromLegacy(" &8<- &7кликабельно"))
                                 .build())
                         .build();
 
@@ -84,7 +86,7 @@ public class Vote implements CommandExecutor {
 
             } else {
 
-                player.sendMessage(TextCreator.fromLegacy(
+                player.sendMessage(textCreator.fromLegacy(
                                 "&8[&6REBOOT&8] &7Необходимо как минимум &3" +
                                 config.VOTING_MIN_PLAYERS +
                                 " &7игроков онлайн&8."));
@@ -119,7 +121,7 @@ public class Vote implements CommandExecutor {
             if (ChronoUnit.SECONDS.between(timeNow, TimeCheckerThread.getRestartDateTime()) <= config.VOTING_DURATION
                 && !TimeCheckerThread.haveRebootTask()) {
 
-                player.sendMessage(TextCreator.getMessageServerWillRestartSoon());
+                player.sendMessage(textCreator.getMessageServerWillRestartSoon());
 
                 return false;
             }
@@ -130,7 +132,7 @@ public class Vote implements CommandExecutor {
                 LocalTime timeUntilNextVoting = LocalTime
                         .ofSecondOfDay(ChronoUnit.SECONDS.between(timeNow, timeServerStart.plusMinutes(config.VOTING_DELAY_AFTER_RESTART).plusSeconds(1L)));
 
-                player.sendMessage(TextCreator.getMessageTimeUntilNextVoting(
+                player.sendMessage(textCreator.getMessageTimeUntilNextVoting(
                         timeUntilNextVoting.getHour(), timeUntilNextVoting.getMinute(), timeUntilNextVoting.getSecond()));
 
 
@@ -145,7 +147,7 @@ public class Vote implements CommandExecutor {
                 LocalTime timeUntilNextVoting = LocalTime
                         .ofSecondOfDay(ChronoUnit.SECONDS.between(timeNow, timeLastVoting.plusMinutes(config.VOTING_DELAY_RE_VOTE).plusSeconds(1L)));
 
-                player.sendMessage(TextCreator.getMessageTimeUntilNextVoting(
+                player.sendMessage(textCreator.getMessageTimeUntilNextVoting(
                         timeUntilNextVoting.getHour(), timeUntilNextVoting.getMinute(), timeUntilNextVoting.getSecond()));
 
                 System.out.println(ChronoUnit.SECONDS.between(timeLastVoting, timeNow));
@@ -155,7 +157,7 @@ public class Vote implements CommandExecutor {
 
             if (votes) {
 
-                player.sendMessage(TextCreator
+                player.sendMessage(textCreator
                         .fromLegacy("&8[&6REBOOT&8] &7Голосование уже идет"));
 
                 return false;
@@ -254,14 +256,14 @@ public class Vote implements CommandExecutor {
 
         private void updateScoreBoard() {
              objective.setDisplayName(
-                     TextCreator.fromLegacy("&6Перезагрузить сервер? &3" + timer)
+                     textCreator.fromLegacy("&6Перезагрузить сервер? &3" + timer)
              );
 
-            objective.getOrCreateScore(TextCreator.fromLegacy(
+            objective.getOrCreateScore(textCreator.fromLegacy(
                     "&l&2               Да"
             )).setScore(yesVotes);
 
-            objective.getOrCreateScore(TextCreator.fromLegacy(
+            objective.getOrCreateScore(textCreator.fromLegacy(
                     "&l&4              Нет"
             )).setScore(noVotes);
 
@@ -290,7 +292,7 @@ public class Vote implements CommandExecutor {
                     .getGame()
                     .getServer()
                     .getBroadcastChannel()
-                    .send(TextCreator.fromLegacy(
+                    .send(textCreator.fromLegacy(
                                     "&8[&6REBOOT&8] &7Голосование завершено" +
                                     "  &2за &a" +
                                     yesVotes +
@@ -305,7 +307,7 @@ public class Vote implements CommandExecutor {
                         .getGame()
                         .getServer()
                         .getBroadcastChannel()
-                        .send(TextCreator.fromLegacy("&8[&6REBOOT&8] &7Перезагрузке не быть"));
+                        .send(textCreator.fromLegacy("&8[&6REBOOT&8] &7Перезагрузке не быть"));
 
             }*/
 
@@ -316,7 +318,7 @@ public class Vote implements CommandExecutor {
                         .getGame()
                         .getServer()
                         .getBroadcastChannel()
-                        .send(TextCreator.fromLegacy("&8[&6REBOOT&8] &7Недостаточно голосов для перезагрузки сервера&8."));
+                        .send(textCreator.fromLegacy("&8[&6REBOOT&8] &7Недостаточно голосов для перезагрузки сервера&8."));
             }
 
             timeLastVoting = LocalDateTime.now();

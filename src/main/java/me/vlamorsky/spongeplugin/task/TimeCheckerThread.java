@@ -28,6 +28,7 @@ public class TimeCheckerThread extends Thread {
 
     private final Config config;
     private static String reasonMessage;
+    private TextCreator textCreator;
 
     public static TimeCheckerThread getInstance() {
         return instance;
@@ -36,6 +37,7 @@ public class TimeCheckerThread extends Thread {
     public TimeCheckerThread() {
         instance = this;
         config = RebootManager.getInstance().getConfig();
+        textCreator = RebootManager.getInstance().getTextCreator();
         notifyIntervals = new TreeSet<>();
         restartIntervals = new TreeSet<>();
         hasRebootTask = config.AUTORESTART_ENABLED;
@@ -156,13 +158,13 @@ public class TimeCheckerThread extends Thread {
         int second = secondsUntilRestart % 60;
 
         Sponge.getServer().getBroadcastChannel()
-                .send(TextCreator.getMessageTimeUntilRestart(hour, minute, second));
+                .send(textCreator.getMessageTimeUntilRestart(hour, minute, second));
 
         Sponge.getServer().getOnlinePlayers()
                 .forEach(player -> player.sendTitle(Title
                         .builder()
-                        .title(TextCreator.getMessageTimeUntilRestart(hour, minute, second))
-                        .subtitle(TextCreator.fromLegacy("&7" + reasonMessage))
+                        .title(textCreator.getMessageTimeUntilRestart(hour, minute, second))
+                        .subtitle(textCreator.fromLegacy("&7" + reasonMessage))
                         .stay(60)
                         .build()));
     }

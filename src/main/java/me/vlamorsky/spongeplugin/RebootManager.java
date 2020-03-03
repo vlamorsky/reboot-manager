@@ -36,11 +36,14 @@ import java.nio.file.Path;
         version = "1.0",
         description = "Reboot manager plugin for sponge")
 public class RebootManager {
-    private static Logger logger;
+    private Logger logger;
     private Game game;
+
+    private TextCreator textCreator;
     private Config config;
     private Path configPath;
     private ConfigurationLoader<CommentedConfigurationNode> configLoader;
+
     private static RebootManager instance = null;
 
     @Inject
@@ -59,7 +62,7 @@ public class RebootManager {
     @Listener
     public void preInit(GamePreInitializationEvent event) {
         loadConfig();
-
+        textCreator = new TextCreator(config);
     }
 
     @Listener
@@ -81,12 +84,9 @@ public class RebootManager {
         saveConfig();
     }
 
-    @Inject
     private void loadConfig() {
         try {
-
             config = new Config(configPath, configLoader);
-
         } catch (IOException | ObjectMappingException e) {
             logger.warn("Failed to load config!");
         }
@@ -197,9 +197,9 @@ public class RebootManager {
                     public void run() {
                         logger.info("[reboot_manager] Restarting...");
                         try {
-                            Sponge.getServer().getBroadcastChannel().send(TextCreator.fromLegacy("&8[&6REBOOT&8] &7Сервер перезагружается&8..."));
+                            Sponge.getServer().getBroadcastChannel().send(textCreator.fromLegacy("&8[&6REBOOT&8] &7Сервер перезагружается&8..."));
                             Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "save-all");
-                            Sponge.getServer().shutdown(TextCreator.fromLegacy("&7Сервер перезагружается&8:\n" + message));
+                            Sponge.getServer().shutdown(textCreator.fromLegacy("&7Сервер перезагружается&8:\n" + message));
                         } catch (Exception e) {
                             logger.info("Something went wrong while saving & stopping!");
                             logger.warn("Exception: " + e);
@@ -224,11 +224,15 @@ public class RebootManager {
         return instance;
     }
 
-    public static Logger getLogger() {
+    public Logger getLogger() {
         return logger;
     }
 
     public Config getConfig() {
         return config;
+    }
+
+    public TextCreator getTextCreator() {
+        return textCreator;
     }
 }

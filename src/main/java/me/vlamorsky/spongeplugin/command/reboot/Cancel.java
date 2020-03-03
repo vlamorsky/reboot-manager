@@ -1,5 +1,6 @@
 package me.vlamorsky.spongeplugin.command.reboot;
 
+import me.vlamorsky.spongeplugin.RebootManager;
 import me.vlamorsky.spongeplugin.task.ShutdownTask;
 import me.vlamorsky.spongeplugin.task.TimeCheckerThread;
 import me.vlamorsky.spongeplugin.util.TextCreator;
@@ -11,6 +12,13 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 
 public class Cancel implements CommandExecutor {
+
+    private TextCreator textCreator;
+
+    public Cancel() {
+        this.textCreator = RebootManager.getInstance().getTextCreator();
+    }
+
     @Override
     public CommandResult execute(CommandSource source, CommandContext args) throws CommandException {
 
@@ -19,17 +27,17 @@ public class Cancel implements CommandExecutor {
         }
 
         if (isShutDownTaskInitialized()) {
-            source.sendMessage(TextCreator.getMessageServerIsRestarting());
+            source.sendMessage(textCreator.getMessageServerIsRestarting());
             return CommandResult.success();
         }
 
         if (!TimeCheckerThread.haveRebootTask()) {
-            source.sendMessage(TextCreator.getMessageNoScheduledTasks());
+            source.sendMessage(textCreator.getMessageNoScheduledTasks());
             return CommandResult.success();
         }
 
         TimeCheckerThread.cancelRebootTask();
-        source.sendMessage(TextCreator.getMessageTaskCancelled());
+        source.sendMessage(textCreator.getMessageTaskCancelled());
 
         return CommandResult.success();
     }

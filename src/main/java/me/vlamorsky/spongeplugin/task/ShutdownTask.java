@@ -30,18 +30,18 @@ public class ShutdownTask implements Runnable {
     private SoundType soundPreShotDown;
 
     private Config config;
+    private TextCreator textCreator;
     private String reasonMessage;
 
     public ShutdownTask(String reasonMessage) {
         config = RebootManager.getInstance().getConfig();
         loadConfigs();
+        textCreator = RebootManager.getInstance().getTextCreator();
         this.reasonMessage = reasonMessage;
         timer = 10;
         percent = timer / 10;
         serverBossBar = ServerBossBar.builder()
-                .name(new TextCreator()
-                        .append("До рестарта: " + timer)
-                        .build())
+                .name(textCreator.fromLegacy(reasonMessage))
                 .playEndBossMusic(true)
                 .color(BossBarColors.GREEN)
                 .overlay(BossBarOverlays.PROGRESS)
@@ -77,7 +77,7 @@ public class ShutdownTask implements Runnable {
 
     public void showBossBarMessage() {
         serverBossBar
-                .setName(TextCreator.fromLegacy(reasonMessage))
+                .setName(textCreator.fromLegacy(reasonMessage))
                 .setPercent(percent);
 
         serverBossBar.addPlayers(RebootManager.getInstance().getGame().getServer().getOnlinePlayers());
@@ -89,10 +89,7 @@ public class ShutdownTask implements Runnable {
         Objective objective = Objective.builder()
                 .name("restart_board")
                 .criterion(Criteria.DUMMY)
-                .displayName(new TextCreator()
-                        .setColor(TextColors.DARK_RED)
-                        .append(Text.of("Info: "))
-                        .build())
+                .displayName(textCreator.fromLegacy("&2INFO"))
                 .build();
         scoreboard.addObjective(objective);
 
@@ -106,7 +103,7 @@ public class ShutdownTask implements Runnable {
 
     private void showChatMessage() {
         Sponge.getServer().getBroadcastChannel().send(
-                TextCreator.fromLegacy("&8[&6REBOOT&8] &7До перезагрузки сервера&6" + timer + TextCreator.endOfSeconds(timer)));
+                textCreator.getMessageTimeUntilRestart(0, 0, timer));
     }
 
     private void showTitleMessage() {
@@ -114,8 +111,8 @@ public class ShutdownTask implements Runnable {
         Sponge.getServer().getOnlinePlayers()
                 .forEach(player -> player.sendTitle(Title
                         .builder()
-                        .title(TextCreator.fromLegacy("&7До перезагрузки сервера&6" + timer + TextCreator.endOfSeconds(timer)))
-                        .subtitle(TextCreator.fromLegacy("&7" + reasonMessage))
+                        .title(textCreator.getMessageTimeUntilRestart(0, 0, timer))
+                        .subtitle(textCreator.fromLegacy("&7" + reasonMessage))
                         .stay(40)
                         .build()));
     }

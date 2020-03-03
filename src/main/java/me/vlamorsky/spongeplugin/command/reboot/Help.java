@@ -1,5 +1,6 @@
 package me.vlamorsky.spongeplugin.command.reboot;
 
+import me.vlamorsky.spongeplugin.RebootManager;
 import me.vlamorsky.spongeplugin.util.TextCreator;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
@@ -16,6 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Help implements CommandExecutor {
+
+    private TextCreator textCreator;
+
+    public Help() {
+        this.textCreator = RebootManager.getInstance().getTextCreator();
+    }
 
     @Override
     public CommandResult execute(CommandSource source, CommandContext args) throws CommandException {
@@ -38,26 +45,26 @@ public class Help implements CommandExecutor {
         List<Text> contents = new ArrayList<>();
 
         if (sender.hasPermission(Permissions.COMMAND_START))
-            contents.add(TextCreator.fromLegacy("&8/&3reboot start &8<&3time&8> &3h&8|&3m&8|&3s &8[&3reason&8] - &7перезагрузить сервер через указанное время"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot start &8<&3time&8> &3h&8|&3m&8|&3s &8[&3reason&8] - &7перезагрузить сервер через указанное время"));
 
         if (sender.hasPermission(Permissions.COMMAND_CANCEL))
-            contents.add(TextCreator.fromLegacy("&8/&3reboot cancel &8- &7отменить перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot cancel &8- &7отменить перезагрузку сервера"));
 
         if (sender.hasPermission(Permissions.COMMAND_TIME))
-            contents.add(TextCreator.fromLegacy("&8/&3reboot time &8- &7узнать время до перезагрузки сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot time &8- &7узнать время до перезагрузки сервера"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTE))
-            contents.add(TextCreator.fromLegacy("&8/&3reboot vote &8- &7начать голосование за перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot vote &8- &7начать голосование за перезагрузку сервера"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTE))
-            contents.add(TextCreator.fromLegacy("&8/&3vote yes &8- &7проголосовать &2за &7перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3vote yes &8- &7проголосовать &2за &7перезагрузку сервера"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTE))
-            contents.add(TextCreator.fromLegacy("&8/&3vote no &8- &7проголосовать &4против &7перезагрузки сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3vote no &8- &7проголосовать &4против &7перезагрузки сервера"));
 
 
         paginationService.builder()
-                .title(TextCreator.fromLegacy("&6Reboot manager"))
+                .title(textCreator.fromLegacy("&6Reboot manager"))
                 .contents(contents)
                 .padding(Text.of("-"))
                 .sendTo(sender);
