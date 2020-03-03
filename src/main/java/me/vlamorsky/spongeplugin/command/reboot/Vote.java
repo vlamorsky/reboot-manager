@@ -116,7 +116,8 @@ public class Vote implements CommandExecutor {
 
             LocalDateTime timeNow = LocalDateTime.now();
 
-            if (ChronoUnit.SECONDS.between(timeNow, TimeCheckerThread.getRestartDateTime()) <= config.VOTING_DURATION) {
+            if (ChronoUnit.SECONDS.between(timeNow, TimeCheckerThread.getRestartDateTime()) <= config.VOTING_DURATION
+                && !TimeCheckerThread.haveRebootTask()) {
 
                 player.sendMessage(TextCreator.getMessageServerWillRestartSoon());
 
