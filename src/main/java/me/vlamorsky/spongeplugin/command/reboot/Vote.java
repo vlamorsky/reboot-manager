@@ -110,7 +110,7 @@ public class Vote implements CommandExecutor {
             LocalDateTime timeNow = LocalDateTime.now();
 
             if (RebootManager.getInstance().getGame().getServer()
-                    .getOnlinePlayers().size() >= config.VOTING_MIN_PLAYERS) {
+                    .getOnlinePlayers().size() < config.VOTING_MIN_PLAYERS) {
 
                 player.sendMessage(textCreator.getMessageNotEnoughPlayers(config.VOTING_MIN_PLAYERS));
 
