@@ -1,5 +1,6 @@
 package me.vlamorsky.spongeplugin.command.reboot;
 
+import me.vlamorsky.spongeplugin.config.Permissions;
 import me.vlamorsky.spongeplugin.task.TimeCheckerThread;
 import me.vlamorsky.spongeplugin.util.TextCreator;
 import org.spongepowered.api.Sponge;
@@ -109,18 +110,27 @@ public class Vote implements CommandExecutor {
 
             LocalDateTime timeNow = LocalDateTime.now();
 
-            if (RebootManager.getInstance().getGame().getServer()
-                    .getOnlinePlayers().size() < config.VOTING_MIN_PLAYERS) {
-
-                player.sendMessage(textCreator.getMessageNotEnoughPlayers(config.VOTING_MIN_PLAYERS));
-
+            if (votes) {
+                player.sendMessage(textCreator.getMessageAlreadyVoting());
                 return false;
+            }
+
+            if (player.hasPermission(Permissions.COMMAND_VOTE_EARLY)) {
+                return true;
             }
 
             if (ChronoUnit.SECONDS.between(timeNow, TimeCheckerThread.getRestartDateTime()) <= config.VOTING_DURATION
                 && TimeCheckerThread.haveRebootTask()) {
 
                 player.sendMessage(textCreator.getMessageServerWillRestartSoon());
+
+                return false;
+            }
+
+            if (RebootManager.getInstance().getGame().getServer()
+                    .getOnlinePlayers().size() < config.VOTING_MIN_PLAYERS) {
+
+                player.sendMessage(textCreator.getMessageNotEnoughPlayers(config.VOTING_MIN_PLAYERS));
 
                 return false;
             }
@@ -147,13 +157,6 @@ public class Vote implements CommandExecutor {
 
                 player.sendMessage(textCreator.getMessageTimeUntilNextVoting(
                         timeUntilNextVoting.getHour(), timeUntilNextVoting.getMinute(), timeUntilNextVoting.getSecond()));
-
-                return false;
-            }
-
-            if (votes) {
-
-                player.sendMessage(textCreator.getMessageAlreadyVoting());
 
                 return false;
             }
