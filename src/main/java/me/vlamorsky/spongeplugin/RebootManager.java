@@ -33,7 +33,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "reboot_manager",
         name = "Reboot manager",
-        version = "1.0.5",
+        version = "1.0.6",
         description = "Reboot manager plugin for sponge")
 public class RebootManager {
     private Logger logger;
