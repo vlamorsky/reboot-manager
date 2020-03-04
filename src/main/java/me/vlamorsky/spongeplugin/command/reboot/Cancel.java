@@ -16,7 +16,7 @@ public class Cancel implements CommandExecutor {
     private TextCreator textCreator;
 
     public Cancel() {
-        this.textCreator = RebootManager.getInstance().getTextCreator();
+        textCreator = RebootManager.getInstance().getTextCreator();
     }
 
     @Override

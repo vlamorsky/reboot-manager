@@ -299,5 +299,9 @@ public class Vote implements CommandExecutor {
 
             timeLastVoting = LocalDateTime.now();
         }
+
+        public boolean isVotes() {
+            return votes;
+        }
     }
 }

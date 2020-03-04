@@ -27,8 +27,6 @@ public class Hours implements CommandExecutor {
             TimeCheckerThread.setRestartDateTime(LocalDateTime.now().plusHours(timeAmount));
         }
 
-        System.out.println(args);
-
         return CommandResult.success();
     }
 }

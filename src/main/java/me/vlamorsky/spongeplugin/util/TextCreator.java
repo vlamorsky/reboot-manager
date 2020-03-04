@@ -145,4 +145,8 @@ public class TextCreator {
     public Text getMessageNotEnoughVotes() {
         return fromLegacy(config.MESSAGE_PREFIX + " &7Недостаточно голосов для перезагрузки сервера&8.");
     }
+
+    public Text getMessageNoActiveVoting() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Активных голосований нет&8.");
+    }
 }

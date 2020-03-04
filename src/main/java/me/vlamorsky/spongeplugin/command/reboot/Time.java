@@ -19,7 +19,7 @@ public class Time implements CommandExecutor {
     private TextCreator textCreator;
 
     public Time() {
-        this.textCreator = RebootManager.getInstance().getTextCreator();
+        textCreator = RebootManager.getInstance().getTextCreator();
     }
 
     @Override

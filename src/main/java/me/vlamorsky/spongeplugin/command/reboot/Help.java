@@ -21,7 +21,7 @@ public class Help implements CommandExecutor {
     private TextCreator textCreator;
 
     public Help() {
-        this.textCreator = RebootManager.getInstance().getTextCreator();
+        textCreator = RebootManager.getInstance().getTextCreator();
     }
 
     @Override
