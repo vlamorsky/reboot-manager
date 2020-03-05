@@ -64,7 +64,7 @@ public class Help implements CommandExecutor {
 
 
         paginationService.builder()
-                .title(RebootManager.VERSIONED_NAME)
+                .title(textCreator.getMessageHelpTitle())
                 .contents(contents)
                 .padding(Text.of("-"))
                 .sendTo(sender);

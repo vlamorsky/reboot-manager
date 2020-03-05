@@ -6,14 +6,22 @@
 
     <groupId>me.vlamorsky.spongeplugin</groupId>
     <artifactId>reboot-manager</artifactId>
-    <version>1.0.7</version>
-    <name>reboot-manager</name>
+    <version>${plugin.version}</version>
+    <name>${plugin.name}</name>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- PLUGIN CFG -->
+        <plugin.version.major>1</plugin.version.major>
+        <plugin.version.minor>0</plugin.version.minor>
+        <plugin.version.patch>7</plugin.version.patch>
+        <plugin.version>${plugin.version.major}.${plugin.version.minor}.${plugin.version.patch}</plugin.version>
+        <plugin.id>reboot-manager</plugin.id>
+        <plugin.name>Reboot manager</plugin.name>
+        <plugin.descripton>Reboot manager plugin for sponge</plugin.descripton>
     </properties>
 
     <repositories>
@@ -36,5 +44,73 @@
 
     <build>
         <finalName>${project.name}-${project.version}</finalName>
+        <sourceDirectory>${project.basedir}/target/generated-source/src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${project.basedir}/target/generated-source/src">
+                                    <fileset dir="${project.basedir}/src"/>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>delete</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <tasks>
+                                <delete dir="${project.basedir}/target/generated-source/src"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/target/generated-source/src/main/java/me/vlamorsky/spongeplugin/RebootManager.java</file>
+                            <replacements>
+                                <replacement>
+                                    <token>%id%</token>
+                                    <value>${plugin.id}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>%name%</token>
+                                    <value>${plugin.name}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>%description%</token>
+                                    <value>${plugin.descripton}</value>
+                                </replacement>
+                                <replacement>
+                                    <token>%version%</token>
+                                    <value>${project.version}</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

@@ -1,5 +1,6 @@
 package me.vlamorsky.spongeplugin.util;
 
+import me.vlamorsky.spongeplugin.RebootManager;
 import me.vlamorsky.spongeplugin.config.Config;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
@@ -156,5 +157,9 @@ public class TextCreator {
 
     public Text getMessageRestartTimeWasSet() {
         return fromLegacy(config.MESSAGE_PREFIX + " &7Время перезагрузки сервера установлено &2успешно&8.");
+    }
+
+    public Text getMessageHelpTitle() {
+        return fromLegacy("&6" + RebootManager.NAME + " &7v&6" + RebootManager.VERSION);
     }
 }

@@ -21,7 +21,6 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import me.vlamorsky.spongeplugin.task.TimeCheckerThread;
-import org.spongepowered.api.text.serializer.TextSerializers;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -29,10 +28,10 @@ import java.nio.file.Path;
 
 
 @Plugin(
-        id = "reboot_manager",
-        name = "Reboot manager",
-        version = "1.0.7",
-        description = "Reboot manager plugin for sponge")
+        id = "%id%",
+        name = "%name%",
+        version = "%version%",
+        description = "%description%")
 public class RebootManager {
     private Logger logger;
     private Game game;
@@ -43,8 +42,8 @@ public class RebootManager {
     private ConfigurationLoader<CommentedConfigurationNode> configLoader;
 
     private static RebootManager instance = null;
-    public final static Text VERSIONED_NAME =
-            TextSerializers.FORMATTING_CODE.deserializeUnchecked("&6Reboot manager &7v&61&8.&60&8.&67");
+    public final static String VERSION = "%version%";
+    public final static String NAME = "%name%";
 
     @Inject
     public RebootManager(Game game,
