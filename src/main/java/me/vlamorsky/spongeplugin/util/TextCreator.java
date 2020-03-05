@@ -149,4 +149,12 @@ public class TextCreator {
     public Text getMessageNoActiveVoting() {
         return fromLegacy(config.MESSAGE_PREFIX + " &7Активных голосований нет&8.");
     }
+
+    public Text getMessageInvalidTimeFormat() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &4Недопустимый формат времени&8. &7Используйте &3hh&8:&3mm&8.");
+    }
+
+    public Text getMessageRestartTimeWasSet() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Время перезагрузки сервера установлено &2успешно&8.");
+    }
 }

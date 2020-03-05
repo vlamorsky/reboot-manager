@@ -1,9 +1,6 @@
 package me.vlamorsky.spongeplugin;
 
 import me.vlamorsky.spongeplugin.command.reboot.*;
-import me.vlamorsky.spongeplugin.command.reboot.start.Hours;
-import me.vlamorsky.spongeplugin.command.reboot.start.Minutes;
-import me.vlamorsky.spongeplugin.command.reboot.start.Seconds;
 import me.vlamorsky.spongeplugin.command.vote.No;
 import me.vlamorsky.spongeplugin.command.vote.Yes;
 import me.vlamorsky.spongeplugin.config.Config;
@@ -24,6 +21,7 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import me.vlamorsky.spongeplugin.task.TimeCheckerThread;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -33,7 +31,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "reboot_manager",
         name = "Reboot manager",
-        version = "1.0.6",
+        version = "1.0.7",
         description = "Reboot manager plugin for sponge")
 public class RebootManager {
     private Logger logger;
@@ -45,6 +43,8 @@ public class RebootManager {
     private ConfigurationLoader<CommentedConfigurationNode> configLoader;
 
     private static RebootManager instance = null;
+    public final static Text VERSIONED_NAME =
+            TextSerializers.FORMATTING_CODE.deserializeUnchecked("&6Reboot manager &7v&61&8.&60&8.&67");
 
     @Inject
     public RebootManager(Game game,
@@ -118,37 +118,12 @@ public class RebootManager {
                 .executor(new Time())
                 .build();
 
-        CommandSpec hours = CommandSpec.builder()
-                .description(Text.of("Reboot base command"))
-                .permission(Permissions.COMMAND_START)
-                .executor(new Hours())
-                .arguments(
-                        GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("reason"))))
-                .build();
-
-        CommandSpec minutes = CommandSpec.builder()
-                .description(Text.of("Reboot base command"))
-                .permission(Permissions.COMMAND_START)
-                .executor(new Minutes())
-                .arguments(
-                        GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("reason"))))
-                .build();
-
-        CommandSpec seconds = CommandSpec.builder()
-                .description(Text.of("Reboot base command"))
-                .permission(Permissions.COMMAND_START)
-                .executor(new Seconds())
-                .arguments(
-                        GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("reason"))))
-                .build();
-
         CommandSpec start = CommandSpec.builder()
                 .description(Text.of("Reboot base command"))
                 .permission(Permissions.COMMAND_START)
-                .arguments(GenericArguments.integer(Text.of("time")))
-                .child(hours, "h")
-                .child(minutes, "m")
-                .child(seconds, "s")
+                .arguments(GenericArguments.string(Text.of("time")),
+                        GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("reason"))))
+                .executor(new Start())
                 .build();
 
         CommandSpec cancel = CommandSpec.builder()

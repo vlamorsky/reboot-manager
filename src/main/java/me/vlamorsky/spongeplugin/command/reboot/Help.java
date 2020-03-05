@@ -45,7 +45,7 @@ public class Help implements CommandExecutor {
         List<Text> contents = new ArrayList<>();
 
         if (sender.hasPermission(Permissions.COMMAND_START))
-            contents.add(textCreator.fromLegacy("&8/&3reboot start &8<&3time&8> &3h&8|&3m&8|&3s &8[&3reason&8] - &7перезагрузить сервер через указанное время"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot start &8<&3hh&8:&3mm&8> &8[&3reason&8] - &7перезагрузить сервер в указанное время"));
 
         if (sender.hasPermission(Permissions.COMMAND_CANCEL))
             contents.add(textCreator.fromLegacy("&8/&3reboot cancel &8- &7отменить перезагрузку сервера"));
@@ -64,7 +64,7 @@ public class Help implements CommandExecutor {
 
 
         paginationService.builder()
-                .title(textCreator.fromLegacy("&6Reboot manager"))
+                .title(RebootManager.VERSIONED_NAME)
                 .contents(contents)
                 .padding(Text.of("-"))
                 .sendTo(sender);

@@ -115,16 +115,16 @@ public class Vote implements CommandExecutor {
                 return false;
             }
 
-            if (player.hasPermission(Permissions.COMMAND_VOTE_EARLY)) {
-                return true;
-            }
-
             if (ChronoUnit.SECONDS.between(timeNow, TimeCheckerThread.getRestartDateTime()) <= config.VOTING_DURATION
                 && TimeCheckerThread.haveRebootTask()) {
 
                 player.sendMessage(textCreator.getMessageServerWillRestartSoon());
 
                 return false;
+            }
+
+            if (player.hasPermission(Permissions.COMMAND_EXEMPT)) {
+                return true;
             }
 
             if (RebootManager.getInstance().getGame().getServer()
