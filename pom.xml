@@ -44,7 +44,7 @@
 
     <build>
         <finalName>${project.name}-${project.version}</finalName>
-        <sourceDirectory>${project.basedir}/target/generated-source/src</sourceDirectory>
+        <sourceDirectory>${project.basedir}/target/generated-sources/src</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -54,7 +54,7 @@
                         <phase>initialize</phase>
                         <configuration>
                             <tasks>
-                                <copy todir="${project.basedir}/target/generated-source/src">
+                                <copy todir="${project.basedir}/target/generated-sources/src">
                                     <fileset dir="${project.basedir}/src"/>
                                 </copy>
                             </tasks>
@@ -68,7 +68,7 @@
                         <phase>process-classes</phase>
                         <configuration>
                             <tasks>
-                                <delete dir="${project.basedir}/target/generated-source/src"/>
+                                <delete dir="${project.basedir}/target/generated-sources/src"/>
                             </tasks>
                         </configuration>
                         <goals>
@@ -88,7 +88,7 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <file>${project.basedir}/target/generated-source/src/main/java/me/vlamorsky/spongeplugin/RebootManager.java</file>
+                            <file>${project.basedir}/target/generated-sources/src/main/java/me/vlamorsky/spongeplugin/RebootManager.java</file>
                             <replacements>
                                 <replacement>
                                     <token>%id%</token>
