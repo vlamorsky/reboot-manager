@@ -7,7 +7,7 @@
     <groupId>me.vlamorsky.spongeplugin</groupId>
     <artifactId>reboot-manager</artifactId>
     <version>${plugin.version}</version>
-    <name>${plugin.name}</name>
+    <name>${plugin.id}</name>
     <packaging>jar</packaging>
 
     <properties>
