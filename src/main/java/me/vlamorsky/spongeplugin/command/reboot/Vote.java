@@ -190,11 +190,12 @@ public class Vote implements CommandExecutor {
         }
 
         public VoteThread() {
-            scoreboard = Sponge.getServer().getServerScoreboard().orElse(Scoreboard.builder().build());
+            scoreboard = Sponge.getServer().getServerScoreboard().get();
             objective = Objective.builder()
                     .name("voting_rmc")
                     .criterion(Criteria.DUMMY)
                     .build();
+            scoreboard.removeObjective(objective);
             scoreboard.addObjective(objective);
             playerVotes = new HashMap<>();
             timeServerStart = LocalDateTime.now();

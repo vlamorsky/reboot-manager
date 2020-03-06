@@ -67,7 +67,6 @@ public class RebootManager {
 
     @Listener
     public void init(GameInitializationEvent event) {
-        registerCommand();
     }
 
     @Listener
@@ -76,6 +75,7 @@ public class RebootManager {
 
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
+        registerCommand();
         initIntervalRebooter();
     }
 
