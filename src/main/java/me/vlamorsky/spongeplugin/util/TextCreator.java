@@ -162,4 +162,8 @@ public class TextCreator {
     public Text getMessageHelpTitle() {
         return fromLegacy("&6" + RebootManager.NAME + " &7v&6" + RebootManager.VERSION);
     }
+
+    public Text getMessageVoteInterrupted() {
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование за перезагрузку сервера было &4прервано&8.");
+    }
 }

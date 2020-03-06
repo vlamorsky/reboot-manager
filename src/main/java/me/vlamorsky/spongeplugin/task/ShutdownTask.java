@@ -39,7 +39,7 @@ public class ShutdownTask implements Runnable {
         textCreator = RebootManager.getInstance().getTextCreator();
         this.reasonMessage = reasonMessage;
         timer = 10;
-        percent = timer / 10;
+        percent = timer / 10f;
         serverBossBar = ServerBossBar.builder()
                 .name(textCreator.fromLegacy(reasonMessage))
                 .playEndBossMusic(true)

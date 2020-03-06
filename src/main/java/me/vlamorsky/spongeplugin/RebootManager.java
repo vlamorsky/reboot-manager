@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
@@ -100,15 +101,24 @@ public class RebootManager {
     }
 
     private void registerCommand() {
+        CommandExecutor voteExec = new Vote();
+
         CommandSpec help = CommandSpec.builder()
                 .description(Text.of("Help description"))
                 .executor(new Help())
                 .build();
 
+        CommandSpec voteCancel = CommandSpec.builder()
+                .description(Text.of("Vote cancel"))
+                .permission(Permissions.COMMAND_VOTE_CANCEL)
+                .executor(new VoteCancel())
+                .build();
+
         CommandSpec vote = CommandSpec.builder()
                 .description(Text.of("Vote description"))
                 .permission(Permissions.COMMAND_VOTE)
-                .executor(new Vote())
+                .child(voteCancel, "cancel")
+                .executor(voteExec)
                 .build();
 
         CommandSpec time = CommandSpec.builder()

@@ -28,13 +28,9 @@ public class Help implements CommandExecutor {
     public CommandResult execute(CommandSource source, CommandContext args) throws CommandException {
 
         if (source instanceof Player) {
-
             showHelp(source);
-
             return CommandResult.success();
         }
-
-
 
         return CommandResult.empty();
     }

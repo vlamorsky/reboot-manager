@@ -50,13 +50,7 @@ public class Vote implements CommandExecutor {
             return CommandResult.empty();
         }
 
-        if (!(source instanceof Player)) {
-            return CommandResult.empty();
-        }
-
-        Player player = ((Player) source).getPlayer().get();
-
-        if (voteThread.ableToStartVoting(player)) {
+        if (voteThread.ableToStartVoting(source)) {
 
             voteThread.startVoting();
 
@@ -81,9 +75,6 @@ public class Vote implements CommandExecutor {
                     .build();
 
             broadcastMessage(votingMessage);
-
-
-
         }
 
         return CommandResult.success();
@@ -106,31 +97,31 @@ public class Vote implements CommandExecutor {
 
         private boolean votes;
 
-        public boolean ableToStartVoting(Player player) {
+        public boolean ableToStartVoting(CommandSource source) {
 
             LocalDateTime timeNow = LocalDateTime.now();
 
             if (votes) {
-                player.sendMessage(textCreator.getMessageAlreadyVoting());
+                source.sendMessage(textCreator.getMessageAlreadyVoting());
                 return false;
             }
 
             if (ChronoUnit.SECONDS.between(timeNow, TimeCheckerThread.getRestartDateTime()) <= config.VOTING_DURATION
                 && TimeCheckerThread.haveRebootTask()) {
 
-                player.sendMessage(textCreator.getMessageServerWillRestartSoon());
+                source.sendMessage(textCreator.getMessageServerWillRestartSoon());
 
                 return false;
             }
 
-            if (player.hasPermission(Permissions.COMMAND_EXEMPT)) {
+            if (source.hasPermission(Permissions.COMMAND_EXEMPT)) {
                 return true;
             }
 
             if (RebootManager.getInstance().getGame().getServer()
                     .getOnlinePlayers().size() < config.VOTING_MIN_PLAYERS) {
 
-                player.sendMessage(textCreator.getMessageNotEnoughPlayers(config.VOTING_MIN_PLAYERS));
+                source.sendMessage(textCreator.getMessageNotEnoughPlayers(config.VOTING_MIN_PLAYERS));
 
                 return false;
             }
@@ -141,7 +132,7 @@ public class Vote implements CommandExecutor {
                 LocalTime timeUntilNextVoting = LocalTime
                         .ofSecondOfDay(ChronoUnit.SECONDS.between(timeNow, timeServerStart.plusMinutes(config.VOTING_DELAY_AFTER_RESTART).plusSeconds(1L)));
 
-                player.sendMessage(textCreator.getMessageTimeUntilNextVoting(
+                source.sendMessage(textCreator.getMessageTimeUntilNextVoting(
                         timeUntilNextVoting.getHour(), timeUntilNextVoting.getMinute(), timeUntilNextVoting.getSecond()));
 
 
@@ -155,7 +146,7 @@ public class Vote implements CommandExecutor {
                 LocalTime timeUntilNextVoting = LocalTime
                         .ofSecondOfDay(ChronoUnit.SECONDS.between(timeNow, timeLastVoting.plusMinutes(config.VOTING_DELAY_RE_VOTE).plusSeconds(1L)));
 
-                player.sendMessage(textCreator.getMessageTimeUntilNextVoting(
+                source.sendMessage(textCreator.getMessageTimeUntilNextVoting(
                         timeUntilNextVoting.getHour(), timeUntilNextVoting.getMinute(), timeUntilNextVoting.getSecond()));
 
                 return false;
@@ -199,7 +190,7 @@ public class Vote implements CommandExecutor {
         }
 
         public VoteThread() {
-            scoreboard = Scoreboard.builder().build();
+            scoreboard = Sponge.getServer().getServerScoreboard().orElse(Scoreboard.builder().build());
             objective = Objective.builder()
                     .name("voting_rmc")
                     .criterion(Criteria.DUMMY)
@@ -305,6 +296,17 @@ public class Vote implements CommandExecutor {
 
         public boolean isVotes() {
             return votes;
+        }
+
+        public void cancelVote() {
+            votes = false;
+            clearScoreBoard();
+            resetValues();
+
+            Sponge.getGame()
+                    .getServer()
+                    .getBroadcastChannel()
+                    .send(textCreator.getMessageVoteInterrupted());
         }
     }
 }
