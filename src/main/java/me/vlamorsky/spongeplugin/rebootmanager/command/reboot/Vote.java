@@ -1,8 +1,8 @@
-package me.vlamorsky.spongeplugin.command.reboot;
+package me.vlamorsky.spongeplugin.rebootmanager.command.reboot;
 
-import me.vlamorsky.spongeplugin.config.Permissions;
-import me.vlamorsky.spongeplugin.task.TimeCheckerThread;
-import me.vlamorsky.spongeplugin.util.TextCreator;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Permissions;
+import me.vlamorsky.spongeplugin.rebootmanager.task.TimeCheckerThread;
+import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -16,8 +16,8 @@ import org.spongepowered.api.scoreboard.displayslot.DisplaySlots;
 import org.spongepowered.api.scoreboard.objective.Objective;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
-import me.vlamorsky.spongeplugin.RebootManager;
-import me.vlamorsky.spongeplugin.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -156,6 +156,8 @@ public class Vote implements CommandExecutor {
         }
 
         public void startVoting() {
+            scoreboard.removeObjective(objective);
+            scoreboard.addObjective(objective);
             votes = true;
         }
 
@@ -245,7 +247,7 @@ public class Vote implements CommandExecutor {
         }
 
         private void updateScoreBoard() {
-             objective.setDisplayName(
+            objective.setDisplayName(
                      textCreator.fromLegacy("&6Перезагрузить сервер? &3" + timer)
              );
 
@@ -259,14 +261,22 @@ public class Vote implements CommandExecutor {
 
             scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
 
-
-            Sponge.getGame().getServer()
-                    .getOnlinePlayers().forEach((player) -> player.setScoreboard(scoreboard));
+            /*Task.builder()
+                    .execute(() -> {
+                        Sponge.getServer()
+                                .getOnlinePlayers().forEach(player -> {
+                            player.getScoreboard().updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
+                        });
+                    })
+                    .async()
+                    .submit(RebootManager.getInstance());*/
         }
 
         private void clearScoreBoard() {
-            Sponge.getGame().getServer()
-                    .getOnlinePlayers().forEach((player) -> player.getScoreboard().clearSlot(DisplaySlots.SIDEBAR));
+            /*Sponge.getGame().getServer()
+                    .getOnlinePlayers().forEach((player) -> player.getScoreboard().clearSlot(DisplaySlots.SIDEBAR));*/
+            scoreboard.removeObjective(objective);
+            scoreboard.clearSlot(DisplaySlots.SIDEBAR);
         }
 
         private void resetValues() {

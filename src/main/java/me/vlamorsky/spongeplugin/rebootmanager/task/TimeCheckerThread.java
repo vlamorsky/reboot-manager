@@ -1,9 +1,9 @@
-package me.vlamorsky.spongeplugin.task;
+package me.vlamorsky.spongeplugin.rebootmanager.task;
 
 import com.flowpowered.math.vector.Vector3d;
-import me.vlamorsky.spongeplugin.RebootManager;
-import me.vlamorsky.spongeplugin.config.Config;
-import me.vlamorsky.spongeplugin.util.TextCreator;
+import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.effect.sound.SoundType;
@@ -13,7 +13,9 @@ import org.spongepowered.api.text.title.Title;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TimeCheckerThread extends Thread {
     private static TimeCheckerThread instance;

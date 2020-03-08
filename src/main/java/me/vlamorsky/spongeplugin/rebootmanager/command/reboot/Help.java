@@ -1,7 +1,8 @@
-package me.vlamorsky.spongeplugin.command.reboot;
+package me.vlamorsky.spongeplugin.rebootmanager.command.reboot;
 
-import me.vlamorsky.spongeplugin.RebootManager;
-import me.vlamorsky.spongeplugin.util.TextCreator;
+import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Permissions;
+import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -11,7 +12,6 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.service.pagination.PaginationService;
 import org.spongepowered.api.text.Text;
-import me.vlamorsky.spongeplugin.config.Permissions;
 
 import java.util.ArrayList;
 import java.util.List;

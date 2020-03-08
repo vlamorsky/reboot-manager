@@ -1,9 +1,9 @@
-package me.vlamorsky.spongeplugin.command.vote;
+package me.vlamorsky.spongeplugin.rebootmanager.command.vote;
 
-import me.vlamorsky.spongeplugin.RebootManager;
-import me.vlamorsky.spongeplugin.command.reboot.Vote;
-import me.vlamorsky.spongeplugin.config.Config;
-import me.vlamorsky.spongeplugin.util.TextCreator;
+import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
+import me.vlamorsky.spongeplugin.rebootmanager.command.reboot.Vote;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;

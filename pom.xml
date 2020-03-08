@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.vlamorsky.spongeplugin</groupId>
-    <artifactId>reboot-manager</artifactId>
+    <artifactId>rebootmanager</artifactId>
     <version>${plugin.version}</version>
     <name>${plugin.id}</name>
 
@@ -17,7 +17,7 @@
         <!-- PLUGIN CFG -->
         <plugin.version.major>1</plugin.version.major>
         <plugin.version.minor>0</plugin.version.minor>
-        <plugin.version.patch>8</plugin.version.patch>
+        <plugin.version.patch>9</plugin.version.patch>
         <plugin.version>${plugin.version.major}.${plugin.version.minor}.${plugin.version.patch}</plugin.version>
         <plugin.id>reboot-manager</plugin.id>
         <plugin.name>Reboot manager</plugin.name>
@@ -88,7 +88,7 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <file>${project.basedir}/target/generated-sources/src/main/java/me/vlamorsky/spongeplugin/RebootManager.java</file>
+                            <file>${project.basedir}/target/generated-sources/src/main/java/me/vlamorsky/spongeplugin/${project.artifactId}/RebootManager.java</file>
                             <replacements>
                                 <replacement>
                                     <token>%id%</token>

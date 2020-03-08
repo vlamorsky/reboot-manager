@@ -1,4 +1,4 @@
-package me.vlamorsky.spongeplugin.config;
+package me.vlamorsky.spongeplugin.rebootmanager.config;
 
 import com.google.common.reflect.TypeToken;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;

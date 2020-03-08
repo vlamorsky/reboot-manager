@@ -1,8 +1,9 @@
-package me.vlamorsky.spongeplugin.task;
+package me.vlamorsky.spongeplugin.rebootmanager.task;
 
 import com.flowpowered.math.vector.Vector3d;
-import me.vlamorsky.spongeplugin.config.Config;
-import me.vlamorsky.spongeplugin.util.TextCreator;
+import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.boss.BossBarColors;
 import org.spongepowered.api.boss.BossBarOverlays;
@@ -15,7 +16,6 @@ import org.spongepowered.api.scoreboard.displayslot.DisplaySlots;
 import org.spongepowered.api.scoreboard.objective.Objective;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
-import me.vlamorsky.spongeplugin.RebootManager;
 import org.spongepowered.api.text.title.Title;
 
 import java.util.Optional;

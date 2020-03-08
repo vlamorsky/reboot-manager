@@ -1,11 +1,13 @@
-package me.vlamorsky.spongeplugin;
+package me.vlamorsky.spongeplugin.rebootmanager;
 
-import me.vlamorsky.spongeplugin.command.reboot.*;
-import me.vlamorsky.spongeplugin.command.vote.No;
-import me.vlamorsky.spongeplugin.command.vote.Yes;
-import me.vlamorsky.spongeplugin.config.Config;
-import me.vlamorsky.spongeplugin.config.Permissions;
-import me.vlamorsky.spongeplugin.util.TextCreator;
+import com.google.inject.Inject;
+import me.vlamorsky.spongeplugin.rebootmanager.command.reboot.*;
+import me.vlamorsky.spongeplugin.rebootmanager.command.vote.No;
+import me.vlamorsky.spongeplugin.rebootmanager.command.vote.Yes;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Permissions;
+import me.vlamorsky.spongeplugin.rebootmanager.task.TimeCheckerThread;
+import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -21,9 +23,7 @@ import org.spongepowered.api.event.game.state.*;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
-import me.vlamorsky.spongeplugin.task.TimeCheckerThread;
 
-import javax.inject.Inject;
 import java.io.IOException;
 import java.nio.file.Path;
 

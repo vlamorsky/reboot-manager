@@ -1,7 +1,7 @@
-package me.vlamorsky.spongeplugin.util;
+package me.vlamorsky.spongeplugin.rebootmanager.util;
 
-import me.vlamorsky.spongeplugin.RebootManager;
-import me.vlamorsky.spongeplugin.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
+import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.serializer.TextSerializers;
 

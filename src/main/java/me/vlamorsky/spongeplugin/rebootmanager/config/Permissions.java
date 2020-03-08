@@ -1,4 +1,4 @@
-package me.vlamorsky.spongeplugin.config;
+package me.vlamorsky.spongeplugin.rebootmanager.config;
 
 public abstract class Permissions {
 
