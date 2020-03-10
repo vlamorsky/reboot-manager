@@ -53,10 +53,10 @@ public class Help implements CommandExecutor {
             contents.add(textCreator.fromLegacy("&8/&3reboot vote &8- &7начать голосование за перезагрузку сервера"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTING))
-            contents.add(textCreator.fromLegacy("&8/&3vote yes &8- &7проголосовать &2за &7перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot vote yes &8- &7проголосовать &2за &7перезагрузку сервера"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTING))
-            contents.add(textCreator.fromLegacy("&8/&3vote no &8- &7проголосовать &4против &7перезагрузки сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot vote no &8- &7проголосовать &4против &7перезагрузки сервера"));
 
 
         paginationService.builder()

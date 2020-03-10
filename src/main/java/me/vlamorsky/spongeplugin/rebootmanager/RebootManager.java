@@ -7,6 +7,7 @@ import me.vlamorsky.spongeplugin.rebootmanager.command.vote.Yes;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Permissions;
 import me.vlamorsky.spongeplugin.rebootmanager.task.TimeCheckerThread;
+import me.vlamorsky.spongeplugin.rebootmanager.task.VoteThread;
 import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
@@ -37,6 +38,7 @@ public class RebootManager {
     private Logger logger;
     private Game game;
 
+    private VoteThread voteThread;
     private TextCreator textCreator;
     private Config config;
     private Path configPath;
@@ -75,8 +77,8 @@ public class RebootManager {
 
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
+        initTasks();
         registerCommand();
-        initIntervalRebooter();
     }
 
     @Listener
@@ -103,9 +105,16 @@ public class RebootManager {
     private void registerCommand() {
         CommandExecutor voteExec = new Vote();
 
-        CommandSpec help = CommandSpec.builder()
-                .description(Text.of("Help description"))
-                .executor(new Help())
+        CommandSpec voteYes = CommandSpec.builder()
+                .description(Text.of("vote yes"))
+                .permission(Permissions.COMMAND_VOTING)
+                .executor(new Yes())
+                .build();
+
+        CommandSpec voteNo = CommandSpec.builder()
+                .description(Text.of("vote no"))
+                .permission(Permissions.COMMAND_VOTING)
+                .executor(new No())
                 .build();
 
         CommandSpec voteCancel = CommandSpec.builder()
@@ -115,20 +124,27 @@ public class RebootManager {
                 .build();
 
         CommandSpec vote = CommandSpec.builder()
-                .description(Text.of("Vote description"))
+                .description(Text.of("vote"))
                 .permission(Permissions.COMMAND_VOTE)
+                .child(voteYes, "yes")
+                .child(voteNo, "no")
                 .child(voteCancel, "cancel")
-                .executor(voteExec)
+                .executor(new Vote())
+                .build();
+
+        CommandSpec help = CommandSpec.builder()
+                .description(Text.of("help"))
+                .executor(new Help())
                 .build();
 
         CommandSpec time = CommandSpec.builder()
-                .description(Text.of("time cmd"))
+                .description(Text.of("time"))
                 .permission(Permissions.COMMAND_TIME)
                 .executor(new Time())
                 .build();
 
         CommandSpec start = CommandSpec.builder()
-                .description(Text.of("Reboot base command"))
+                .description(Text.of("start new reboot task"))
                 .permission(Permissions.COMMAND_START)
                 .arguments(GenericArguments.string(Text.of("time")),
                         GenericArguments.optional(GenericArguments.remainingJoinedStrings(Text.of("reason"))))
@@ -136,13 +152,13 @@ public class RebootManager {
                 .build();
 
         CommandSpec cancel = CommandSpec.builder()
-                .description(Text.of("Reboot base command"))
+                .description(Text.of("cancel current reboot task"))
                 .permission(Permissions.COMMAND_CANCEL)
                 .executor(new Cancel())
                 .build();
 
         CommandSpec rebootMain = CommandSpec.builder()
-                .description(Text.of("restart base command"))
+                .description(Text.of("reboot"))
                 .child(help, "help")
                 .child(vote, "vote")
                 .child(time, "time")
@@ -151,27 +167,6 @@ public class RebootManager {
                 .build();
 
         game.getCommandManager().register(this, rebootMain, "reboot");
-
-        CommandSpec yes = CommandSpec.builder()
-                .description(Text.of("vote yes"))
-                .permission(Permissions.COMMAND_VOTING)
-                .executor(new Yes())
-                .build();
-
-        CommandSpec no = CommandSpec.builder()
-                .description(Text.of("vote no"))
-                .permission(Permissions.COMMAND_VOTING)
-                .executor(new No())
-                .build();
-
-        CommandSpec voteMain = CommandSpec.builder()
-                .description(Text.of("vote yes|no"))
-                .permission(Permissions.COMMAND_VOTING)
-                .child(yes, "yes")
-                .child(no, "no")
-                .build();
-
-        game.getCommandManager().register(this, voteMain, "vote");
     }
 
     public void stopServer(String message) {
@@ -193,8 +188,11 @@ public class RebootManager {
                 .submit(this);
     }
 
-    private void initIntervalRebooter() {
+    private void initTasks() {
         new TimeCheckerThread().start();
+
+        voteThread = new VoteThread();
+        voteThread.start();
     }
 
     public Game getGame() {
@@ -214,6 +212,10 @@ public class RebootManager {
 
     public Config getConfig() {
         return config;
+    }
+
+    public VoteThread getVoteThread() {
+        return voteThread;
     }
 
     public TextCreator getTextCreator() {

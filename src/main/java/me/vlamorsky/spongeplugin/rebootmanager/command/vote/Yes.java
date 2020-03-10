@@ -3,6 +3,7 @@ package me.vlamorsky.spongeplugin.rebootmanager.command.vote;
 import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
 import me.vlamorsky.spongeplugin.rebootmanager.command.reboot.Vote;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
+import me.vlamorsky.spongeplugin.rebootmanager.task.VoteThread;
 import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -13,14 +14,14 @@ import org.spongepowered.api.entity.living.player.Player;
 
 public class Yes implements CommandExecutor {
 
-    private final Vote.VoteThread voteThread;
+    private final VoteThread voteThread;
     private Config config;
     private TextCreator textCreator;
 
     public Yes() {
         config = RebootManager.getInstance().getConfig();
         textCreator = RebootManager.getInstance().getTextCreator();
-        voteThread = Vote.getVoteThread();
+        voteThread = RebootManager.getInstance().getVoteThread();
     }
 
     @Override

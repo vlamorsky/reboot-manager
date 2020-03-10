@@ -16,8 +16,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- PLUGIN CFG -->
         <plugin.version.major>1</plugin.version.major>
-        <plugin.version.minor>0</plugin.version.minor>
-        <plugin.version.patch>9</plugin.version.patch>
+        <plugin.version.minor>1</plugin.version.minor>
+        <plugin.version.patch>0</plugin.version.patch>
         <plugin.version>${plugin.version.major}.${plugin.version.minor}.${plugin.version.patch}</plugin.version>
         <plugin.id>reboot-manager</plugin.id>
         <plugin.name>Reboot manager</plugin.name>

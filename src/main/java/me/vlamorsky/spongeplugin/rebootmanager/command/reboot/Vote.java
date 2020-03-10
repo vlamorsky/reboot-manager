@@ -1,7 +1,6 @@
 package me.vlamorsky.spongeplugin.rebootmanager.command.reboot;
 
-import me.vlamorsky.spongeplugin.rebootmanager.config.Permissions;
-import me.vlamorsky.spongeplugin.rebootmanager.task.TimeCheckerThread;
+import me.vlamorsky.spongeplugin.rebootmanager.task.VoteThread;
 import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
@@ -9,38 +8,22 @@ import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.scoreboard.Scoreboard;
-import org.spongepowered.api.scoreboard.critieria.Criteria;
-import org.spongepowered.api.scoreboard.displayslot.DisplaySlots;
-import org.spongepowered.api.scoreboard.objective.Objective;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
 import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Vote implements CommandExecutor {
 
-    private static VoteThread voteThread;
+    private VoteThread voteThread;
 
     private Config config;
     private TextCreator textCreator;
 
-    public static VoteThread getVoteThread() {
-        return voteThread;
-    }
-
     public Vote() {
         config = RebootManager.getInstance().getConfig();
         textCreator = RebootManager.getInstance().getTextCreator();
-        voteThread = new VoteThread();
-        voteThread.start();
+        voteThread = RebootManager.getInstance().getVoteThread();
     }
 
     @Override
@@ -60,14 +43,14 @@ public class Vote implements CommandExecutor {
                             .build())
                     .append(Text.builder()
                             .append(textCreator.fromLegacy("&8[&2Да&8]"))
-                            .onClick(TextActions.runCommand("/vote yes"))
+                            .onClick(TextActions.runCommand("/reboot vote yes"))
                             .build())
                     .append(Text.builder()
                             .append(Text.of("  "))
                             .build())
                     .append(Text.builder()
                             .append(textCreator.fromLegacy("&8[&4Нет&8]"))
-                            .onClick(TextActions.runCommand("/vote no"))
+                            .onClick(TextActions.runCommand("/reboot vote no"))
                             .build())
                     .append(Text.builder()
                             .append(textCreator.fromLegacy(" &8<- &7кликабельно"))
@@ -84,7 +67,7 @@ public class Vote implements CommandExecutor {
         Sponge.getServer().getBroadcastChannel().send(message);
     }
 
-    public class VoteThread extends Thread {
+    /*public class VoteThread extends Thread {
         private final Scoreboard scoreboard;
         private final Objective objective;
         private int yesVotes;
@@ -261,7 +244,7 @@ public class Vote implements CommandExecutor {
 
             scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
 
-            /*Task.builder()
+            *//*Task.builder()
                     .execute(() -> {
                         Sponge.getServer()
                                 .getOnlinePlayers().forEach(player -> {
@@ -269,12 +252,12 @@ public class Vote implements CommandExecutor {
                         });
                     })
                     .async()
-                    .submit(RebootManager.getInstance());*/
+                    .submit(RebootManager.getInstance());*//*
         }
 
         private void clearScoreBoard() {
-            /*Sponge.getGame().getServer()
-                    .getOnlinePlayers().forEach((player) -> player.getScoreboard().clearSlot(DisplaySlots.SIDEBAR));*/
+            *//*Sponge.getGame().getServer()
+                    .getOnlinePlayers().forEach((player) -> player.getScoreboard().clearSlot(DisplaySlots.SIDEBAR));*//*
             scoreboard.removeObjective(objective);
             scoreboard.clearSlot(DisplaySlots.SIDEBAR);
         }
@@ -319,5 +302,5 @@ public class Vote implements CommandExecutor {
                     .getBroadcastChannel()
                     .send(textCreator.getMessageVoteInterrupted());
         }
-    }
+    }*/
 }
