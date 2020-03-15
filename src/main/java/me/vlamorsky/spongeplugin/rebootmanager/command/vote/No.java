@@ -1,7 +1,6 @@
 package me.vlamorsky.spongeplugin.rebootmanager.command.vote;
 
 import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
-import me.vlamorsky.spongeplugin.rebootmanager.command.reboot.Vote;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
 import me.vlamorsky.spongeplugin.rebootmanager.task.VoteThread;
 import me.vlamorsky.spongeplugin.rebootmanager.util.TextCreator;
@@ -10,7 +9,11 @@ import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
+import org.spongepowered.api.effect.particle.ParticleEffect;
+import org.spongepowered.api.effect.particle.ParticleTypes;
+import org.spongepowered.api.effect.sound.SoundTypes;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.title.Title;
 
 public class No implements CommandExecutor {
 
@@ -39,6 +42,25 @@ public class No implements CommandExecutor {
         Player player = ((Player) source).getPlayer().get();
 
         voteThread.receiveVote(player,"no");
+        player.sendTitle(Title.builder()
+                .subtitle(textCreator.fromLegacy("Ваш &4голос &rпринят"))
+                .stay(20)
+                .build());
+
+        player.spawnParticles(ParticleEffect.builder()
+                .type(ParticleTypes.ANGRY_VILLAGER)
+                .build(), player.getPosition().add(0.6, 1, 0));
+        player.spawnParticles(ParticleEffect.builder()
+                .type(ParticleTypes.ANGRY_VILLAGER)
+                .build(), player.getPosition().add(-0.6, 1, 0));
+        player.spawnParticles(ParticleEffect.builder()
+                .type(ParticleTypes.ANGRY_VILLAGER)
+                .build(), player.getPosition().add(0, 1, 0.6));
+        player.spawnParticles(ParticleEffect.builder()
+                .type(ParticleTypes.ANGRY_VILLAGER)
+                .build(), player.getPosition().add(0, 1, -0.6));
+
+        player.playSound(SoundTypes.ENTITY_VILLAGER_NO, player.getPosition(), 4000);
 
         return CommandResult.success();
     }

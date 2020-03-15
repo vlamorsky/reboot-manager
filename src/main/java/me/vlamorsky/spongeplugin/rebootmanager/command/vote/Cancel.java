@@ -1,4 +1,4 @@
-package me.vlamorsky.spongeplugin.rebootmanager.command.reboot;
+package me.vlamorsky.spongeplugin.rebootmanager.command.vote;
 
 import me.vlamorsky.spongeplugin.rebootmanager.RebootManager;
 import me.vlamorsky.spongeplugin.rebootmanager.task.VoteThread;
@@ -9,12 +9,12 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 
-public class VoteCancel implements CommandExecutor {
+public class Cancel implements CommandExecutor {
 
     private TextCreator textCreator;
     private VoteThread voteThread;
 
-    public VoteCancel() {
+    public Cancel() {
         textCreator = RebootManager.getInstance().getTextCreator();
         voteThread = RebootManager.getInstance().getVoteThread();
     }

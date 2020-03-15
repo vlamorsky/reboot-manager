@@ -3,6 +3,7 @@ package me.vlamorsky.spongeplugin.rebootmanager;
 import com.google.inject.Inject;
 import me.vlamorsky.spongeplugin.rebootmanager.command.reboot.*;
 import me.vlamorsky.spongeplugin.rebootmanager.command.vote.No;
+import me.vlamorsky.spongeplugin.rebootmanager.command.vote.Cancel;
 import me.vlamorsky.spongeplugin.rebootmanager.command.vote.Yes;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Config;
 import me.vlamorsky.spongeplugin.rebootmanager.config.Permissions;
@@ -120,7 +121,7 @@ public class RebootManager {
         CommandSpec voteCancel = CommandSpec.builder()
                 .description(Text.of("Vote cancel"))
                 .permission(Permissions.COMMAND_VOTE_CANCEL)
-                .executor(new VoteCancel())
+                .executor(new Cancel())
                 .build();
 
         CommandSpec vote = CommandSpec.builder()
@@ -154,7 +155,7 @@ public class RebootManager {
         CommandSpec cancel = CommandSpec.builder()
                 .description(Text.of("cancel current reboot task"))
                 .permission(Permissions.COMMAND_CANCEL)
-                .executor(new Cancel())
+                .executor(new me.vlamorsky.spongeplugin.rebootmanager.command.reboot.Cancel())
                 .build();
 
         CommandSpec rebootMain = CommandSpec.builder()

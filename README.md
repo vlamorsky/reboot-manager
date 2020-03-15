@@ -6,10 +6,13 @@
 
 # Permissions
 
- - `rebootmanager.reboot.start` - /reboot start \<time> h|m|s [\<reason>]
+ - `rebootmanager.reboot.start` - /reboot start <hh\:mm> [\<reason>]
  - `rebootmanager.reboot.cancel` - /reboot cancel
  - `rebootmanager.reboot.time` - /reboot start
- - `rebootmanager.reboot.vote` - /reboot vote (/reboot vote yes|no)
+ - `rebootmanager.reboot.vote` - /reboot vote
+ - `rebootmanager.reboot.vote.cancel` - /reboot vote cancel
+ - `rebootmanager.vote` - to use command /reboot vote yes|no
+ - `rebootmanager.exempt` - permission to a premature vote
 
 ***
 

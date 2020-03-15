@@ -21,6 +21,8 @@ public class Config {
     public final String AUTORESTART_REASON;
 
     public final boolean VOTING_ENABLED;
+    public final boolean VOTING_TITLE_ENABLED;
+    public final boolean VOTING_SOUND_ENABLED;
     public final int VOTING_MIN_PLAYERS;
     public final int VOTING_DURATION;
     public final int VOTING_DELAY_AFTER_RESTART;
@@ -59,6 +61,18 @@ public class Config {
 
         VOTING_ENABLED = check(
                 configNode.getNode("voting", "enabled"),
+                true,
+                "[true/false]")
+                .getBoolean();
+
+        VOTING_TITLE_ENABLED = check(
+                configNode.getNode("voting", "middle-screen-notify-enabled"),
+                true,
+                "[true/false]")
+                .getBoolean();
+
+        VOTING_SOUND_ENABLED = check(
+                configNode.getNode("voting", "sound-notify-enabled"),
                 true,
                 "[true/false]")
                 .getBoolean();
