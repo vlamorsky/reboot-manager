@@ -177,9 +177,9 @@ public class RebootManager {
                     public void run() {
                         logger.info("Restarting...");
                         try {
-                            Sponge.getServer().getBroadcastChannel().send(textCreator.fromLegacy(" &7Сервер перезагружается&8..."));
+                            Sponge.getServer().getBroadcastChannel().send(textCreator.fromLegacy(" &7Server rebooting&8..."));
                             Sponge.getCommandManager().process(Sponge.getServer().getConsole(), "save-all");
-                            Sponge.getServer().shutdown(textCreator.fromLegacy("&7Сервер перезагружается&8:\n" + message));
+                            Sponge.getServer().shutdown(textCreator.fromLegacy("&7Server rebooting&8:\n" + message));
                         } catch (Exception e) {
                             logger.info("Something went wrong while saving & stopping!");
                             logger.warn("Exception: " + e);

@@ -45,18 +45,18 @@ public class Vote implements CommandExecutor {
                             .append(textCreator.getMessageAskToRestart())
                             .build())
                     .append(Text.builder()
-                            .append(textCreator.fromLegacy("&8[&2Да&8]"))
+                            .append(textCreator.fromLegacy("&8[&2Yes&8]"))
                             .onClick(TextActions.runCommand("/reboot vote yes"))
                             .build())
                     .append(Text.builder()
                             .append(Text.of("  "))
                             .build())
                     .append(Text.builder()
-                            .append(textCreator.fromLegacy("&8[&4Нет&8]"))
+                            .append(textCreator.fromLegacy("&8[&4No&8]"))
                             .onClick(TextActions.runCommand("/reboot vote no"))
                             .build())
                     .append(Text.builder()
-                            .append(textCreator.fromLegacy(" &8<- &7кликабельно"))
+                            .append(textCreator.fromLegacy(" &8<- &7Click"))
                             .build())
                     .build();
 
@@ -77,7 +77,7 @@ public class Vote implements CommandExecutor {
 
             if (config.VOTING_TITLE_ENABLED) {
                 world.sendTitle(Title.builder()
-                        .subtitle(textCreator.fromLegacy("Началось голосование за перезагрузку сервера"))
+                        .subtitle(textCreator.fromLegacy("Voting for server reboot has started"))
                         .title(Text.of(""))
                         .stay(40)
                         .build());

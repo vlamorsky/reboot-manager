@@ -189,15 +189,15 @@ public class VoteThread extends Thread {
 
     private void updateScoreBoard() {
         objective.setDisplayName(
-                textCreator.fromLegacy("&6Перезагрузить сервер? &3" + timer)
+                textCreator.fromLegacy("&7Reboot Voting &3" + timer)
         );
 
         objective.getOrCreateScore(textCreator.fromLegacy(
-                "&l&2               Да"
+                "&l&2               Yes"
         )).setScore(yesVotes);
 
         objective.getOrCreateScore(textCreator.fromLegacy(
-                "&l&4              Нет"
+                "&l&4                No"
         )).setScore(noVotes);
 
         scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
@@ -235,7 +235,7 @@ public class VoteThread extends Thread {
                 .send(textCreator.getMessageVotingCompleted(yesVotes, noVotes));
 
         if (votesPercent <= (double)yesVotes / Sponge.getServer().getOnlinePlayers().size() && yesVotes > noVotes) {
-            TimeCheckerThread.setRestartDateTime(LocalDateTime.now().plusSeconds(31L), "Перезагрузка по результатам голосования");
+            TimeCheckerThread.setRestartDateTime(LocalDateTime.now().plusSeconds(31L), "Rebooting based on vote results");
         } else {
             Sponge.getGame()
                     .getServer()

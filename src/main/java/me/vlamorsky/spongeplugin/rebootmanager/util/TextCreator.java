@@ -20,21 +20,21 @@ public class TextCreator {
     public String endOfHours(int hour) {
         String ending;
         if (hour >= 11 && hour <= 14) {
-            return "&7 часов";
+            return "&7 hours";
         }
 
         switch (hour % 10) {
             case 1:
-                ending = "&7 час";
+                ending = "&7 hour";
                 break;
             case 2: case 3: case 4:
-                ending = "&7 часа";
+                ending = "&7 hours";
                 break;
             case 5: case 6: case 7: case 8: case 9: case 0:
-                ending = "&7 часов";
+                ending = "&7 hours";
                 break;
             default:
-                ending = "&7 ч.";
+                ending = "&7 h.";
         }
         return ending;
     }
@@ -42,21 +42,21 @@ public class TextCreator {
     public static String endOfMinutes(int minute) {
         String ending;
         if (minute >= 11 && minute <= 14) {
-            return "&7 минут";
+            return "&7 minutes";
         }
 
         switch (minute % 10) {
             case 1:
-                ending = "&7 минута";
+                ending = "&7 minutes";
                 break;
             case 2: case 3: case 4:
-                ending = "&7 минуты";
+                ending = "&7 minutes";
                 break;
             case 5: case 6: case 7: case 8: case 9: case 0:
-                ending = "&7 минут";
+                ending = "&7 minutes";
                 break;
             default:
-                ending = "&7 мин.";
+                ending = "&7 min.";
         }
         return ending;
     }
@@ -64,27 +64,27 @@ public class TextCreator {
     public static String endOfSeconds(int second) {
         String ending;
         if (second >= 11 && second <= 14) {
-            return "&7 секунд";
+            return "&7 seconds";
         }
 
         switch (second % 10) {
             case 1:
-                ending = "&7 секунда";
+                ending = "&7 seconds";
                 break;
             case 2: case 3: case 4:
-                ending = "&7 секунды";
+                ending = "&7 seconds";
                 break;
             case 5: case 6: case 7: case 8: case 9: case 0:
-                ending = "&7 секунд";
+                ending = "&7 seconds";
                 break;
             default:
-                ending = "&7 сек.";
+                ending = "&7 sec.";
         }
         return ending;
     }
 
     public Text getMessageTimeUntilNextVoting(int hour, int minute, int second) {
-        StringBuilder stringMessage = new StringBuilder(config.MESSAGE_PREFIX + " &7До следующего голосования");
+        StringBuilder stringMessage = new StringBuilder(config.MESSAGE_PREFIX + " &7Time until next vote&8:");
         if (hour != 0) {
             stringMessage.append("&3 " + hour + endOfHours(hour));
         }
@@ -98,7 +98,7 @@ public class TextCreator {
     }
 
     public Text getMessageTimeUntilRestart(int hour, int minute, int second) {
-        StringBuilder stringMessage = new StringBuilder("&7До перезагрузки сервера");
+        StringBuilder stringMessage = new StringBuilder("&7Time until reboot&8:");
         if (hour != 0) {
             stringMessage.append("&6 " + hour + endOfHours(hour));
         }
@@ -112,51 +112,51 @@ public class TextCreator {
     }
 
     public Text getMessageServerWillRestartSoon() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование недоступно&8. &7Сервер скоро перезагрузится&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Voting not available. Server will reboot soon.");
     }
 
     public Text getMessageServerIsRestarting() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Сервер перезагружается&8...");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Server reboots.");
     }
 
     public Text getMessageNoScheduledTasks() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Запланированных перезагрузок нет&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7No scscheduled reboots.");
     }
 
     public Text getMessageTaskCancelled() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Перезагрузка сервера отменена &2успешно&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Server reboot canceled successfully.");
     }
 
     public Text getMessageAskToRestart() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Перезагрузить сервер&8?  ");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Reboot server?  ");
     }
 
     public Text getMessageNotEnoughPlayers(int players) {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Необходимо как минимум &3" + players + " &7игроков онлайн&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7At least &3" + players + " &7players required online.");
     }
 
     public Text getMessageAlreadyVoting() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование уже идет&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Voting is already underway.");
     }
 
     public Text getMessageVotingCompleted(int yesVotes, int noVotes) {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование завершено  &2за &a" + yesVotes + "  &4против &c" + noVotes);
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Voting completed, results &3" + yesVotes + "  &7vs. &3" + noVotes);
     }
 
     public Text getMessageNotEnoughVotes() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Недостаточно голосов для перезагрузки сервера&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Not enough required votes to reboot the server.");
     }
 
     public Text getMessageNoActiveVoting() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Активных голосований нет&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7No active voting.");
     }
 
     public Text getMessageInvalidTimeFormat() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &4Недопустимый формат времени&8. &7Используйте &3hh&8:&3mm&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &3Invalid time format, please use &3hh&8:&3mm.");
     }
 
     public Text getMessageRestartTimeWasSet() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Время перезагрузки сервера установлено &2успешно&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &7Server reboot time has &nsuccessfully &7been set!");
     }
 
     public Text getMessageHelpTitle() {
@@ -164,6 +164,6 @@ public class TextCreator {
     }
 
     public Text getMessageVoteInterrupted() {
-        return fromLegacy(config.MESSAGE_PREFIX + " &7Голосование за перезагрузку сервера было &4прервано&8.");
+        return fromLegacy(config.MESSAGE_PREFIX + " &3Voting for server reboot was interrupted!");
     }
 }

@@ -41,22 +41,22 @@ public class Help implements CommandExecutor {
         List<Text> contents = new ArrayList<>();
 
         if (sender.hasPermission(Permissions.COMMAND_START))
-            contents.add(textCreator.fromLegacy("&8/&3reboot start &8<&3hh&8:&3mm&8> &8[&3reason&8] - &7перезагрузить сервер в указанное время"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot start &8<&3hh&8:&3mm&8> &8[&3reason&8] - &7restart the server at the specified time"));
 
         if (sender.hasPermission(Permissions.COMMAND_CANCEL))
-            contents.add(textCreator.fromLegacy("&8/&3reboot cancel &8- &7отменить перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot cancel &8- &7cancel server reboot"));
 
         if (sender.hasPermission(Permissions.COMMAND_TIME))
-            contents.add(textCreator.fromLegacy("&8/&3reboot time &8- &7узнать время до перезагрузки сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot time &8- &7find out the time before rebooting the server"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTE))
-            contents.add(textCreator.fromLegacy("&8/&3reboot vote &8- &7начать голосование за перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot vote &8- &7start voting for server reboot"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTING))
-            contents.add(textCreator.fromLegacy("&8/&3reboot vote yes &8- &7проголосовать &2за &7перезагрузку сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot vote yes &8- &7vote for a server reboot"));
 
         if (sender.hasPermission(Permissions.COMMAND_VOTING))
-            contents.add(textCreator.fromLegacy("&8/&3reboot vote no &8- &7проголосовать &4против &7перезагрузки сервера"));
+            contents.add(textCreator.fromLegacy("&8/&3reboot vote no &8- &7vote against the server reboot"));
 
 
         paginationService.builder()

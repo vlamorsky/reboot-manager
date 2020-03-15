@@ -43,7 +43,7 @@ public class Yes implements CommandExecutor {
 
         voteThread.receiveVote(player,"yes");
         player.sendTitle(Title.builder()
-                .subtitle(textCreator.fromLegacy("Ваш &2голос &rпринят"))
+                .subtitle(textCreator.fromLegacy("Your vote has been accepted."))
                 .stay(20)
                 .build());
 

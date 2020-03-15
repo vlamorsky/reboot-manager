@@ -93,7 +93,7 @@ public class ShutdownTask implements Runnable {
                 .build();
         scoreboard.addObjective(objective);
 
-        objective.getOrCreateScore(Text.builder("До рестарта: ").color(TextColors.GREEN).build()).setScore(timer);
+        objective.getOrCreateScore(Text.builder("Before the restart: ").color(TextColors.GREEN).build()).setScore(timer);
 
         scoreboard.updateDisplaySlot(objective, DisplaySlots.SIDEBAR);
 
